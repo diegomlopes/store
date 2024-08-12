@@ -1,5 +1,9 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 
+/// A service class that provides methods to interact with the authentication
+/// service. This class is used to sign up, verify, log in, log out, and check
+/// if a user is authenticated. It also provides methods to reset and confirm a
+/// password.
 class AuthService {
   Future<void> signUp(String email, String password) async {
     try {
