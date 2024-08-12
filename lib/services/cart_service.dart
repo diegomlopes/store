@@ -2,7 +2,7 @@ import '../models/cart_item.dart';
 import '../models/product.dart';
 
 class CartService {
-  List<CartItem> _cartItems = [];
+  final List<CartItem> _cartItems = [];
 
   List<CartItem> get cartItems => _cartItems;
 

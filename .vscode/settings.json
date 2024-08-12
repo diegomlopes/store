@@ -1,0 +1,15 @@
+{
+    "rewrap.autoWrap.enabled": true,
+    "rewrap.reformat": true,
+    "rewrap.wrappingColumn": 80,
+    "editor.wordWrapColumn": 80,
+    "editor.wordWrap": "wordWrapColumn",
+    "dart.lineLength": 80,
+    "[dart]": {
+        "editor.rulers": [
+            {
+                "column": 80
+            }
+        ]
+    },
+}
