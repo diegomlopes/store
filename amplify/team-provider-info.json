@@ -23,6 +23,15 @@
           "appId": "d1oitnag21d2oh",
           "type": "manual"
         }
+      },
+      "function": {
+        "S3Trigger6e8ca371": {
+          "deploymentBucketName": "amplify-store-dev-83a33-deployment",
+          "s3Key": "amplify-builds/S3Trigger6e8ca371-585a47556c55336a5644-build.zip"
+        }
+      },
+      "storage": {
+        "store": {}
       }
     }
   }

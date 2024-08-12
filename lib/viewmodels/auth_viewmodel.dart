@@ -1,23 +1,127 @@
 import 'package:flutter/material.dart';
-import '../models/user.dart';
 import '../services/auth_service.dart';
 
-class AuthViewModel with ChangeNotifier {
-  User? _user;
-  final AuthService _authService = AuthService();
+class AuthViewModel extends ChangeNotifier {
+  AuthViewModel({AuthService? authService})
+      : _authService = authService ?? AuthService() {
+    checkAuthentication();
+  }
 
-  User? get user => _user;
+  final AuthService _authService;
 
-  bool get isAuthenticated => _user != null;
+  String? _errorMessage;
+  bool _isLoading = false;
+  bool _isAuthenticated = false;
+
+  String? get errorMessage => _errorMessage;
+  bool get isLoading => _isLoading;
+  bool get isAuthenticated => _isAuthenticated;
+
+  Future<void> signUp(String email, String password) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      await _authService.signUp(email, password);
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> verifyCode(String email, String code) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      await _authService.verifyCode(email, code);
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 
   Future<void> login(String email, String password) async {
-    _user = await _authService.login(email, password);
+    _isLoading = true;
     notifyListeners();
+
+    try {
+      await _authService.login(email, password);
+      _isAuthenticated = await _authService.isAuthenticated();
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   Future<void> logout() async {
-    await _authService.logout();
-    _user = null;
+    _isLoading = true;
     notifyListeners();
+
+    try {
+      await _authService.logout();
+      _isAuthenticated = await _authService.isAuthenticated();
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> checkAuthentication() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _isAuthenticated = await _authService.isAuthenticated();
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> resetPassword(String email) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      await _authService.resetPassword(email);
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> confirmPassword(
+      String email, String code, String newPassword) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      await _authService.confirmPassword(email, code, newPassword);
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 }

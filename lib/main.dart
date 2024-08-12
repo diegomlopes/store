@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store/viewmodels/auth_viewmodel.dart';
 import 'app/app.dart';
 import 'app/configure_amplify.dart';
-import 'viewmodels/auth_viewmodel.dart';
 import 'viewmodels/product_viewmodel.dart';
 import 'viewmodels/cart_viewmodel.dart';
 import 'viewmodels/order_viewmodel.dart';
@@ -18,10 +18,10 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AuthViewModel()),
         ChangeNotifierProvider(create: (context) => ProductViewModel()),
         ChangeNotifierProvider(create: (context) => CartViewModel()),
         ChangeNotifierProvider(create: (context) => OrderViewModel()),
+        ChangeNotifierProvider(create: (context) => AuthViewModel()),
       ],
       child: const App(),
     ),
